@@ -27,6 +27,16 @@
             return result
         }
 
+        public func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
+            var result = false
+            __applicationServices.forEach {
+                if $0.applicationShouldHandleReopen?(sender, hasVisibleWindows: flag) ?? false {
+                    result = true
+                }
+            }
+            return result
+        }
+
         public func application(_ application: NSApplication, open urls: [URL]) {
             __applicationServices.forEach {
                 $0.application?(application, open: urls)
