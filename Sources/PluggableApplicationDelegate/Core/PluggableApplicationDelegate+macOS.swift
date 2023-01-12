@@ -43,6 +43,16 @@
             }
         }
 
+        public func application(_ sender: NSApplication, openFile filename: String) -> Bool {
+            var result = false
+            __applicationServices.forEach {
+                if $0.application?(sender, openFile: filename) ?? false {
+                    result = true
+                }
+            }
+            return result
+        }
+
         public func application(
             _ application: NSApplication,
             didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data
