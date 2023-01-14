@@ -23,6 +23,38 @@
             }
         }
 
+        public func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
+            var finalResult: NSApplication.TerminateReply = .terminateNow
+            __applicationServices.forEach {
+                if let result = $0.applicationShouldTerminate?(sender) {
+                    switch result {
+                    case .terminateCancel:
+                        finalResult = .terminateCancel
+                    case .terminateLater:
+                        if finalResult == .terminateNow {
+                            finalResult = .terminateLater
+                        }
+
+                    case .terminateNow:
+                        break
+                    @unknown default:
+                        break
+                    }
+                }
+            }
+            return finalResult
+        }
+
+        public func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
+            var result = false
+            __applicationServices.forEach {
+                if $0.applicationShouldTerminateAfterLastWindowClosed?(sender) ?? false {
+                    result = true
+                }
+            }
+            return result
+        }
+
         public func applicationSupportsSecureRestorableState(_ app: NSApplication) -> Bool {
             var result = false
             __applicationServices.forEach {
