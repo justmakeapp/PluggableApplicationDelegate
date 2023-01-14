@@ -5,6 +5,12 @@
         open var applicationServices: [ApplicationService] { return [] }
         internal lazy var __applicationServices: [ApplicationService] = self.applicationServices
 
+        public func applicationWillFinishLaunching(_ notification: Notification) {
+            __applicationServices.forEach {
+                $0.applicationWillFinishLaunching?(notification)
+            }
+        }
+
         public func applicationDidFinishLaunching(_ notification: Notification) {
             __applicationServices.forEach {
                 $0.applicationDidFinishLaunching?(notification)
@@ -47,6 +53,22 @@
             var result = false
             __applicationServices.forEach {
                 if $0.application?(sender, openFile: filename) ?? false {
+                    result = true
+                }
+            }
+            return result
+        }
+
+        public func application(_ sender: NSApplication, openFiles filenames: [String]) {
+            __applicationServices.forEach {
+                $0.application?(sender, openFiles: filenames)
+            }
+        }
+
+        public func application(_ sender: Any, openFileWithoutUI filename: String) -> Bool {
+            var result = false
+            __applicationServices.forEach {
+                if $0.application?(sender, openFileWithoutUI: filename) ?? false {
                     result = true
                 }
             }
