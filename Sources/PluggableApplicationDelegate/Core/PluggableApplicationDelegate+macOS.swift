@@ -83,5 +83,37 @@
                 $0.application?(application, didRegisterForRemoteNotificationsWithDeviceToken: deviceToken)
             }
         }
+
+        public func application(
+            _ application: NSApplication,
+            continue userActivity: NSUserActivity,
+            restorationHandler: @escaping ([NSUserActivityRestoring]) -> Void
+        ) -> Bool {
+            var result = false
+            __applicationServices.forEach {
+                let r = $0.application?(
+                    application,
+                    continue: userActivity,
+                    restorationHandler: restorationHandler
+                ) ?? false
+
+                if r {
+                    result = true
+                }
+            }
+            return result
+        }
+
+        public func application(_ app: NSApplication, willEncodeRestorableState coder: NSCoder) {
+            __applicationServices.forEach {
+                $0.application?(app, willEncodeRestorableState: coder)
+            }
+        }
+
+        public func application(_ app: NSApplication, didDecodeRestorableState coder: NSCoder) {
+            __applicationServices.forEach {
+                $0.application?(app, didDecodeRestorableState: coder)
+            }
+        }
     }
 #endif
