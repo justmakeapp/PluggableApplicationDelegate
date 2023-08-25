@@ -3,7 +3,7 @@
 
     open class PluggableApplicationDelegate: NSObject, ApplicationDelegate {
         open var applicationServices: [ApplicationService] { return [] }
-        internal lazy var __applicationServices: [ApplicationService] = self.applicationServices
+        lazy var __applicationServices: [ApplicationService] = self.applicationServices
 
         public func applicationWillFinishLaunching(_ notification: Notification) {
             __applicationServices.forEach {

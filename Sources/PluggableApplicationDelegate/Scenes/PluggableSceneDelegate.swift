@@ -1,5 +1,5 @@
 //
-//  PluggableApplicationDelegate.swift
+//  PluggableSceneDelegate.swift
 //  PluggableApplicationDelegate
 //
 //  Created by Fernando Ortiz on 2/24/17.
@@ -20,7 +20,7 @@
         public var window: UIWindow?
 
         open var sceneServices: [SceneService] { return [] }
-        internal lazy var __sceneServices: [SceneService] = self.sceneServices
+        lazy var __sceneServices: [SceneService] = self.sceneServices
 
         @discardableResult
         private func applyToScene<T, S>(
