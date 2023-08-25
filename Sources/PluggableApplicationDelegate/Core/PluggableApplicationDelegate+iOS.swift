@@ -128,8 +128,7 @@
 
         @available(iOS 9.0, *)
         open func application(_ app: UIApplication, open url: URL,
-                              options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool
-        {
+                              options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
             var result = false
             for service in __applicationServices {
                 if service.application?(app, open: url, options: options) ?? false {
@@ -465,8 +464,7 @@
             var result = false
             for service in __applicationServices {
                 if service
-                    .application?(application, shouldAllowExtensionPointIdentifier: extensionPointIdentifier) ?? true
-                {
+                    .application?(application, shouldAllowExtensionPointIdentifier: extensionPointIdentifier) ?? true {
                     result = true
                 }
             }
@@ -548,8 +546,7 @@
         // or application:didFailToContinueUserActivityWithType:error: if an error was encountered.
         @available(iOS 8.0, *)
         open func application(_ application: UIApplication,
-                              willContinueUserActivityWithType userActivityType: String) -> Bool
-        {
+                              willContinueUserActivityWithType userActivityType: String) -> Bool {
             var result = false
             for service in __applicationServices {
                 if service.application?(application, willContinueUserActivityWithType: userActivityType) ?? false {
