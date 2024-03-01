@@ -7,11 +7,13 @@
 
 #if os(iOS)
     import UIKit
+
     public typealias ApplicationDelegate = UIApplicationDelegate
 #endif
 
 #if os(macOS)
     import AppKit
+
     public typealias ApplicationDelegate = NSApplicationDelegate
 #endif
 

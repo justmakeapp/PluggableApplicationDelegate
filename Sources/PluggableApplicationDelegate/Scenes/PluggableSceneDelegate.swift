@@ -68,12 +68,14 @@
             interfaceOrientation previousInterfaceOrientation: UIInterfaceOrientation,
             traitCollection previousTraitCollection: UITraitCollection
         ) {
-            __sceneServices.forEach { $0.windowScene?(
-                windowScene,
-                didUpdate: previousCoordinateSpace,
-                interfaceOrientation: previousInterfaceOrientation,
-                traitCollection: previousTraitCollection
-            ) }
+            for __sceneService in __sceneServices {
+                __sceneService.windowScene?(
+                    windowScene,
+                    didUpdate: previousCoordinateSpace,
+                    interfaceOrientation: previousInterfaceOrientation,
+                    traitCollection: previousTraitCollection
+                )
+            }
         }
 
         @available(iOS 13.0, *)

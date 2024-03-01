@@ -6,27 +6,27 @@
         lazy var __applicationServices: [ApplicationService] = self.applicationServices
 
         public func applicationWillFinishLaunching(_ notification: Notification) {
-            __applicationServices.forEach {
-                $0.applicationWillFinishLaunching?(notification)
+            for __applicationService in __applicationServices {
+                __applicationService.applicationWillFinishLaunching?(notification)
             }
         }
 
         public func applicationDidFinishLaunching(_ notification: Notification) {
-            __applicationServices.forEach {
-                $0.applicationDidFinishLaunching?(notification)
+            for __applicationService in __applicationServices {
+                __applicationService.applicationDidFinishLaunching?(notification)
             }
         }
 
         public func applicationWillTerminate(_ notification: Notification) {
-            __applicationServices.forEach {
-                $0.applicationWillTerminate?(notification)
+            for __applicationService in __applicationServices {
+                __applicationService.applicationWillTerminate?(notification)
             }
         }
 
         public func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
             var finalResult: NSApplication.TerminateReply = .terminateNow
-            __applicationServices.forEach {
-                if let result = $0.applicationShouldTerminate?(sender) {
+            for __applicationService in __applicationServices {
+                if let result = __applicationService.applicationShouldTerminate?(sender) {
                     switch result {
                     case .terminateCancel:
                         finalResult = .terminateCancel
@@ -47,8 +47,8 @@
 
         public func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
             var result = false
-            __applicationServices.forEach {
-                if $0.applicationShouldTerminateAfterLastWindowClosed?(sender) ?? false {
+            for __applicationService in __applicationServices {
+                if __applicationService.applicationShouldTerminateAfterLastWindowClosed?(sender) ?? false {
                     result = true
                 }
             }
@@ -57,8 +57,8 @@
 
         public func applicationSupportsSecureRestorableState(_ app: NSApplication) -> Bool {
             var result = false
-            __applicationServices.forEach {
-                if $0.applicationSupportsSecureRestorableState?(app) ?? false {
+            for __applicationService in __applicationServices {
+                if __applicationService.applicationSupportsSecureRestorableState?(app) ?? false {
                     result = true
                 }
             }
@@ -67,8 +67,8 @@
 
         public func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
             var result = false
-            __applicationServices.forEach {
-                if $0.applicationShouldHandleReopen?(sender, hasVisibleWindows: flag) ?? false {
+            for __applicationService in __applicationServices {
+                if __applicationService.applicationShouldHandleReopen?(sender, hasVisibleWindows: flag) ?? false {
                     result = true
                 }
             }
@@ -76,15 +76,15 @@
         }
 
         public func application(_ application: NSApplication, open urls: [URL]) {
-            __applicationServices.forEach {
-                $0.application?(application, open: urls)
+            for __applicationService in __applicationServices {
+                __applicationService.application?(application, open: urls)
             }
         }
 
         public func application(_ sender: NSApplication, openFile filename: String) -> Bool {
             var result = false
-            __applicationServices.forEach {
-                if $0.application?(sender, openFile: filename) ?? false {
+            for __applicationService in __applicationServices {
+                if __applicationService.application?(sender, openFile: filename) ?? false {
                     result = true
                 }
             }
@@ -92,15 +92,15 @@
         }
 
         public func application(_ sender: NSApplication, openFiles filenames: [String]) {
-            __applicationServices.forEach {
-                $0.application?(sender, openFiles: filenames)
+            for __applicationService in __applicationServices {
+                __applicationService.application?(sender, openFiles: filenames)
             }
         }
 
         public func application(_ sender: Any, openFileWithoutUI filename: String) -> Bool {
             var result = false
-            __applicationServices.forEach {
-                if $0.application?(sender, openFileWithoutUI: filename) ?? false {
+            for __applicationService in __applicationServices {
+                if __applicationService.application?(sender, openFileWithoutUI: filename) ?? false {
                     result = true
                 }
             }
@@ -111,8 +111,11 @@
             _ application: NSApplication,
             didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data
         ) {
-            __applicationServices.forEach {
-                $0.application?(application, didRegisterForRemoteNotificationsWithDeviceToken: deviceToken)
+            for __applicationService in __applicationServices {
+                __applicationService.application?(
+                    application,
+                    didRegisterForRemoteNotificationsWithDeviceToken: deviceToken
+                )
             }
         }
 
@@ -122,8 +125,8 @@
             restorationHandler: @escaping ([NSUserActivityRestoring]) -> Void
         ) -> Bool {
             var result = false
-            __applicationServices.forEach {
-                let r = $0.application?(
+            for __applicationService in __applicationServices {
+                let r = __applicationService.application?(
                     application,
                     continue: userActivity,
                     restorationHandler: restorationHandler
@@ -137,14 +140,14 @@
         }
 
         public func application(_ app: NSApplication, willEncodeRestorableState coder: NSCoder) {
-            __applicationServices.forEach {
-                $0.application?(app, willEncodeRestorableState: coder)
+            for __applicationService in __applicationServices {
+                __applicationService.application?(app, willEncodeRestorableState: coder)
             }
         }
 
         public func application(_ app: NSApplication, didDecodeRestorableState coder: NSCoder) {
-            __applicationServices.forEach {
-                $0.application?(app, didDecodeRestorableState: coder)
+            for __applicationService in __applicationServices {
+                __applicationService.application?(app, didDecodeRestorableState: coder)
             }
         }
     }
