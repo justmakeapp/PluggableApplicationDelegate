@@ -34,7 +34,6 @@
                         if finalResult == .terminateNow {
                             finalResult = .terminateLater
                         }
-
                     case .terminateNow:
                         break
                     @unknown default:
