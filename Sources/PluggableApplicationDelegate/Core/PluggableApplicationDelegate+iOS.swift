@@ -236,13 +236,13 @@
             for notification: UILocalNotification,
             completionHandler: @escaping () -> Void
         ) {
-            applyToApplication({ service, completion -> Void? in
+            applyToApplication { service, completion -> Void? in
                 service.application?(application, handleActionWithIdentifier: identifier, for: notification) {
                     completion(())
                 }
-            }, completionHandler: { _ in
+            } completionHandler: { _ in
                 completionHandler()
-            })
+            }
         }
 
         @available(
@@ -258,7 +258,7 @@
             withResponseInfo responseInfo: [AnyHashable: Any],
             completionHandler: @escaping () -> Swift.Void
         ) {
-            applyToApplication({ service, completionHandler -> Void? in
+            applyToApplication { service, completionHandler -> Void? in
                 service.application?(
                     application,
                     handleActionWithIdentifier: identifier,
@@ -267,9 +267,9 @@
                 ) {
                     completionHandler(())
                 }
-            }, completionHandler: { _ in
+            } completionHandler: { _ in
                 completionHandler()
-            })
+            }
         }
 
         // Called when your app has been activated by the user selecting an action from a remote notification.
@@ -287,7 +287,7 @@
             forRemoteNotification userInfo: [AnyHashable: Any],
             completionHandler: @escaping () -> Swift.Void
         ) {
-            applyToApplication({ service, completionHandler -> Void? in
+            applyToApplication { service, completionHandler -> Void? in
                 service.application?(
                     application,
                     handleActionWithIdentifier: identifier,
@@ -295,9 +295,9 @@
                 ) {
                     completionHandler(())
                 }
-            }, completionHandler: { _ in
+            } completionHandler: { _ in
                 completionHandler()
-            })
+            }
         }
 
         @available(
@@ -313,7 +313,7 @@
             withResponseInfo responseInfo: [AnyHashable: Any],
             completionHandler: @escaping () -> Swift.Void
         ) {
-            applyToApplication({ service, completionHandler -> Void? in
+            applyToApplication { service, completionHandler -> Void? in
                 service.application?(
                     application,
                     handleActionWithIdentifier: identifier,
@@ -322,9 +322,9 @@
                 ) {
                     completionHandler(())
                 }
-            }, completionHandler: { _ in
+            } completionHandler: { _ in
                 completionHandler()
-            })
+            }
         }
 
         /*! This delegate method offers an opportunity for applications with the "remote-notification" background mode to fetch appropriate new data in response to an incoming remote notification. You should call the fetchCompletionHandler as soon as you're finished performing that operation, so the system can accurately estimate its power and data cost.
@@ -336,16 +336,16 @@
             didReceiveRemoteNotification userInfo: [AnyHashable: Any],
             fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Swift.Void
         ) {
-            applyToApplication({ service, completionHandler -> Void? in
+            applyToApplication { service, completionHandler -> Void? in
                 service.application?(
                     application,
                     didReceiveRemoteNotification: userInfo,
                     fetchCompletionHandler: completionHandler
                 )
-            }, completionHandler: { results in
+            } completionHandler: { results in
                 let result = results.min(by: { $0.rawValue < $1.rawValue }) ?? .noData
                 completionHandler(result)
-            })
+            }
         }
 
         // Called when the user activates your application by selecting a shortcut on the home screen,
@@ -358,13 +358,13 @@
             performActionFor shortcutItem: UIApplicationShortcutItem,
             completionHandler: @escaping (Bool) -> Swift.Void
         ) {
-            applyToApplication({ service, completionHandler -> Void? in
+            applyToApplication { service, completionHandler -> Void? in
                 service.application?(application, performActionFor: shortcutItem, completionHandler: completionHandler)
-            }, completionHandler: { results in
+            } completionHandler: { results in
                 // if any service handled the shortcut, return true
                 let result = results.reduce(false) { $0 || $1 }
                 completionHandler(result)
-            })
+            }
         }
 
         // Applications using an NSURLSession with a background configuration may be launched or resumed in the
@@ -386,13 +386,13 @@
             handleEventsForBackgroundURLSession identifier: String,
             completionHandler: @escaping () -> Swift.Void
         ) {
-            applyToApplication({ service, completionHandler -> Void? in
+            applyToApplication { service, completionHandler -> Void? in
                 service.application?(application, handleEventsForBackgroundURLSession: identifier) {
                     completionHandler(())
                 }
-            }, completionHandler: { _ in
+            } completionHandler: { _ in
                 completionHandler()
-            })
+            }
         }
 
         @available(iOS 8.2, *)
@@ -404,9 +404,9 @@
             for service in __applicationServices {
                 service.application?(application, handleWatchKitExtensionRequest: userInfo, reply: reply)
             }
-            applyToApplication({ service, reply -> Void? in
+            applyToApplication { service, reply -> Void? in
                 service.application?(application, handleWatchKitExtensionRequest: userInfo, reply: reply)
-            }, completionHandler: { results in
+            } completionHandler: { results in
                 let result = results.reduce([:]) { initial, next in
                     var initial = initial
                     for (key, value) in next ?? [:] {
@@ -415,7 +415,7 @@
                     return initial
                 }
                 reply(result)
-            })
+            }
         }
 
         @available(iOS 9.0, *)
@@ -570,12 +570,12 @@
             continue userActivity: NSUserActivity,
             restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void
         ) -> Bool {
-            let returns = applyToApplication({ service, restorationHandler -> Bool? in
+            let returns = applyToApplication { service, restorationHandler -> Bool? in
                 service.application?(application, continue: userActivity, restorationHandler: restorationHandler)
-            }, completionHandler: { results in
+            } completionHandler: { results in
                 let result = results.reduce([]) { $0 + ($1 ?? []) }
                 restorationHandler(result)
-            })
+            }
 
             return returns.reduce(false) { $0 || $1 }
         }

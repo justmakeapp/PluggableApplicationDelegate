@@ -84,14 +84,14 @@
             performActionFor shortcutItem: UIApplicationShortcutItem,
             completionHandler: @escaping (Bool) -> Void
         ) {
-            applyToScene({ service, completionHandler in
+            applyToScene { service, completionHandler in
                 service.windowScene?(windowScene, performActionFor: shortcutItem) { result in
                     completionHandler(result)
                 }
-            }, completionHandler: { results in
+            } completionHandler: { results in
                 let result = results.reduce(false) { $0 || $1 }
                 completionHandler(result)
-            })
+            }
         }
 
         @available(iOS 13.0, *)
