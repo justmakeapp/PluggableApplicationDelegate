@@ -2,7 +2,10 @@
     import AppKit
 
     open class PluggableApplicationDelegate: NSObject, ApplicationDelegate {
-        open var applicationServices: [ApplicationService] { return [] }
+        open var applicationServices: [ApplicationService] {
+            return []
+        }
+
         lazy var __applicationServices: [ApplicationService] = self.applicationServices
 
         public func applicationWillFinishLaunching(_ notification: Notification) {

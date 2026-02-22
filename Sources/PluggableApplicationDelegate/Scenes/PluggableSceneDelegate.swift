@@ -19,7 +19,10 @@
     open class PluggableSceneDelegate: UIResponder, SceneDelegate {
         public var window: UIWindow?
 
-        open var sceneServices: [SceneService] { return [] }
+        open var sceneServices: [SceneService] {
+            return []
+        }
+
         lazy var __sceneServices: [SceneService] = self.sceneServices
 
         @discardableResult

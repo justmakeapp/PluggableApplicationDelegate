@@ -12,7 +12,10 @@
     open class PluggableApplicationDelegate: UIResponder, ApplicationDelegate {
         public var window: UIWindow?
 
-        open var applicationServices: [ApplicationService] { return [] }
+        open var applicationServices: [ApplicationService] {
+            return []
+        }
+
         lazy var __applicationServices: [ApplicationService] = self.applicationServices
 
         @discardableResult
@@ -159,9 +162,9 @@
             }
         }
 
-        // This callback will be made upon calling -[UIApplication registerUserNotificationSettings:]. The settings the
-        // user
-        // has granted to the application will be passed in as the second argument.
+        /// This callback will be made upon calling -[UIApplication registerUserNotificationSettings:]. The settings the
+        /// user
+        /// has granted to the application will be passed in as the second argument.
         @available(
             iOS,
             introduced: 8.0,
@@ -221,9 +224,9 @@
             }
         }
 
-        // Called when your app has been activated by the user selecting an action from a local notification.
-        // A nil action identifier indicates the default action.
-        // You should call the completion handler as soon as you've finished handling the action.
+        /// Called when your app has been activated by the user selecting an action from a local notification.
+        /// A nil action identifier indicates the default action.
+        /// You should call the completion handler as soon as you've finished handling the action.
         @available(
             iOS,
             introduced: 8.0,
@@ -272,9 +275,9 @@
             }
         }
 
-        // Called when your app has been activated by the user selecting an action from a remote notification.
-        // A nil action identifier indicates the default action.
-        // You should call the completion handler as soon as you've finished handling the action.
+        /// Called when your app has been activated by the user selecting an action from a remote notification.
+        /// A nil action identifier indicates the default action.
+        /// You should call the completion handler as soon as you've finished handling the action.
         @available(
             iOS,
             introduced: 8.0,
@@ -327,7 +330,7 @@
             }
         }
 
-        /*! This delegate method offers an opportunity for applications with the "remote-notification" background mode to fetch appropriate new data in response to an incoming remote notification. You should call the fetchCompletionHandler as soon as you're finished performing that operation, so the system can accurately estimate its power and data cost.
+        /** ! This delegate method offers an opportunity for applications with the "remote-notification" background mode to fetch appropriate new data in response to an incoming remote notification. You should call the fetchCompletionHandler as soon as you're finished performing that operation, so the system can accurately estimate its power and data cost.
 
          This method will be invoked even if the application was launched or resumed because of the remote notification. The respective delegate methods will be invoked first. Note that this behavior is in contrast to application:didReceiveRemoteNotification:, which is not called in those cases, and which will not be invoked if this method is implemented. ! */
         @available(iOS 7.0, *)
@@ -348,10 +351,10 @@
             }
         }
 
-        // Called when the user activates your application by selecting a shortcut on the home screen,
-        // except when -application:willFinishLaunchingWithOptions: or -application:didFinishLaunchingWithOptions
-        // returns
-        // NO.
+        /// Called when the user activates your application by selecting a shortcut on the home screen,
+        /// except when -application:willFinishLaunchingWithOptions: or -application:didFinishLaunchingWithOptions
+        /// returns
+        /// NO.
         @available(iOS 9.0, *)
         open func application(
             _ application: UIApplication,
@@ -367,19 +370,19 @@
             }
         }
 
-        // Applications using an NSURLSession with a background configuration may be launched or resumed in the
-        // background
-        // in order to handle the
-        // completion of tasks in that session, or to handle authentication. This method will be called with the
-        // identifier
-        // of the session needing
-        // attention. Once a session has been created from a configuration object with that identifier, the session's
-        // delegate will begin receiving
-        // callbacks. If such a session has already been created (if the app is being resumed, for instance), then the
-        // delegate will start receiving
-        // callbacks without any action by the application. You should call the completionHandler as soon as you're
-        // finished
-        // handling the callbacks.
+        /// Applications using an NSURLSession with a background configuration may be launched or resumed in the
+        /// background
+        /// in order to handle the
+        /// completion of tasks in that session, or to handle authentication. This method will be called with the
+        /// identifier
+        /// of the session needing
+        /// attention. Once a session has been created from a configuration object with that identifier, the session's
+        /// delegate will begin receiving
+        /// callbacks. If such a session has already been created (if the app is being resumed, for instance), then the
+        /// delegate will start receiving
+        /// callbacks without any action by the application. You should call the completionHandler as soon as you're
+        /// finished
+        /// handling the callbacks.
         @available(iOS 7.0, *)
         open func application(
             _ application: UIApplication,
@@ -453,9 +456,9 @@
             }
         }
 
-        // Applications may reject specific types of extensions based on the extension point identifier.
-        // Constants representing common extension point identifiers are provided further down.
-        // If unimplemented, the default behavior is to allow the extension point identifier.
+        /// Applications may reject specific types of extensions based on the extension point identifier.
+        /// Constants representing common extension point identifiers are provided further down.
+        /// If unimplemented, the default behavior is to allow the extension point identifier.
         @available(iOS 8.0, *)
         open func application(
             _ application: UIApplication,
@@ -537,13 +540,13 @@
             }
         }
 
-        // Called on the main thread as soon as the user indicates they want to continue an activity in your
-        // application.
-        // The NSUserActivity object may not be available instantly,
-        // so use this as an opportunity to show the user that an activity will be continued shortly.
-        // For each application:willContinueUserActivityWithType: invocation, you are guaranteed to get exactly one
-        // invocation of application:continueUserActivity: on success,
-        // or application:didFailToContinueUserActivityWithType:error: if an error was encountered.
+        /// Called on the main thread as soon as the user indicates they want to continue an activity in your
+        /// application.
+        /// The NSUserActivity object may not be available instantly,
+        /// so use this as an opportunity to show the user that an activity will be continued shortly.
+        /// For each application:willContinueUserActivityWithType: invocation, you are guaranteed to get exactly one
+        /// invocation of application:continueUserActivity: on success,
+        /// or application:didFailToContinueUserActivityWithType:error: if an error was encountered.
         @available(iOS 8.0, *)
         open func application(_ application: UIApplication,
                               willContinueUserActivityWithType userActivityType: String) -> Bool {
@@ -556,14 +559,14 @@
             return result
         }
 
-        // Called on the main thread after the NSUserActivity object is available. Use the data you stored in the
-        // NSUserActivity object to re-create what the user was doing.
-        // You can create/fetch any restorable objects associated with the user activity, and pass them to the
-        // restorationHandler. They will then have the UIResponder restoreUserActivityState: method
-        // invoked with the user activity. Invoking the restorationHandler is optional. It may be copied and invoked
-        // later,
-        // and it will bounce to the main thread to complete its work and call
-        // restoreUserActivityState on all objects.
+        /// Called on the main thread after the NSUserActivity object is available. Use the data you stored in the
+        /// NSUserActivity object to re-create what the user was doing.
+        /// You can create/fetch any restorable objects associated with the user activity, and pass them to the
+        /// restorationHandler. They will then have the UIResponder restoreUserActivityState: method
+        /// invoked with the user activity. Invoking the restorationHandler is optional. It may be copied and invoked
+        /// later,
+        /// and it will bounce to the main thread to complete its work and call
+        /// restoreUserActivityState on all objects.
         @available(iOS 8.0, *)
         public func application(
             _ application: UIApplication,
@@ -580,9 +583,9 @@
             return returns.reduce(false) { $0 || $1 }
         }
 
-        // If the user activity cannot be fetched after willContinueUserActivityWithType is called, this will be called
-        // on
-        // the main thread when implemented.
+        /// If the user activity cannot be fetched after willContinueUserActivityWithType is called, this will be called
+        /// on
+        /// the main thread when implemented.
         @available(iOS 8.0, *)
         open func application(
             _ application: UIApplication,
@@ -594,9 +597,10 @@
             }
         }
 
-        // This is called on the main thread when a user activity managed by UIKit has been updated. You can use this as
-        // a
-        // last chance to add additional data to the userActivity.
+        /// This is called on the main thread when a user activity managed by UIKit has been updated. You can use this
+        /// as
+        /// a
+        /// last chance to add additional data to the userActivity.
         @available(iOS 8.0, *)
         open func application(_ application: UIApplication, didUpdate userActivity: NSUserActivity) {
             for service in __applicationServices {
