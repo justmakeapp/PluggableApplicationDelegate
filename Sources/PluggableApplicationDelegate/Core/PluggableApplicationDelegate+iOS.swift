@@ -7,6 +7,8 @@
 //
 
 #if os(iOS)
+    import CloudKit
+    import Intents
     import UIKit
 
     open class PluggableApplicationDelegate: UIResponder, ApplicationDelegate {
